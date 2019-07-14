@@ -42,6 +42,8 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -104,17 +106,41 @@ module.exports = function(webpackEnv) {
           ],
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },
-      },
+      }
+
     ].filter(Boolean);
-    if (preProcessor) {
-      loaders.push({
-        loader: require.resolve(preProcessor),
+    // if (preProcessor) {
+    //   loaders.push({
+    //     loader: require.resolve(preProcessor),
+    //     options: {
+    //       sourceMap: isEnvProduction && shouldUseSourceMap,
+    //     },
+    //   });
+    // }
+    // return loaders;
+    //@To-do 新添加内容
+  if (preProcessor) {
+    let loader = require.resolve(preProcessor)
+    if (preProcessor === "less-loader") {
+      loader = {
+        loader,
         options: {
-          sourceMap: isEnvProduction && shouldUseSourceMap,
-        },
-      });
+          modifyVars: { //自定义主题
+            // 'primary-color':' #f00',
+          },
+          javascriptEnabled: true,
+        }
+      }
     }
-    return loaders;
+    loaders.push(loader);
+  }
+  return loaders;
+
+
+// 作者：sbwxffnhc
+// 链接：https://juejin.im/post/5c3964986fb9a049b41cb040
+// 来源：掘金
+// 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
   };
 
   return {
@@ -452,6 +478,35 @@ module.exports = function(webpackEnv) {
                 'sass-loader'
               ),
             },
+
+            // Less 解析配置
+            {
+              test: lessRegex,
+              exclude: lessModuleRegex,
+              use: getStyleLoaders(
+                  {
+                      importLoaders: 2,
+                      sourceMap: isEnvProduction && shouldUseSourceMap,
+                  },
+                  'less-loader'
+              ),
+              sideEffects: true,
+            },
+            {
+              test: lessModuleRegex,
+              use: getStyleLoaders(
+                  {
+                      importLoaders: 2,
+                      sourceMap: isEnvProduction && shouldUseSourceMap,
+                      modules: true,
+                      getLocalIdent: getCSSModuleLocalIdent,
+                  },
+                  'less-loader'
+              )
+            },
+
+
+
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.
