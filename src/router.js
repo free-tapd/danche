@@ -12,6 +12,11 @@ import Notice from "./page/ui/notice"
 import Message from "./page/ui/message"
 import Tabs from "./page/ui/tabs"
 import Tables from "./page/ui/tables"
+import Order from "./page/order"
+import Premission from "./page/premission"
+import Common from "./Common"
+import OrderDetail from "./page/order/orderDetail"
+
 class IRouter extends Component {
     constructor(props) {
         super(props);
@@ -34,13 +39,21 @@ class IRouter extends Component {
                         <Route path="/admin/ui/tabs" component={Tabs}/>
                         <Route path="/admin/ui/table" component={Tables}/>
                         <Route path="/admin/city" component={City}/>
+                        <Route path="/admin/order" component={Order}/>
+                        <Route path="/admin/permission" component={Premission}/>
                     </Admin>
                 )
                  
                 }>
 
                 </Route>
-                
+				
+				<Route path="/Common" render={()=>
+					<Common>
+						<Route path="/Common/orderDetail" component={OrderDetail}/>
+					</Common>
+				}>
+                </Route>
                 </App>
             </Router>
          );

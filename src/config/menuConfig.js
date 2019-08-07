@@ -35,7 +35,15 @@ const menuList=[
     },{
         title:"车辆管理",
         key:"/admin/city"
-    }
+    },{
+		title:"订单管理",
+		key:"/admin/order",
+	
+		
+	},{
+		title:"权限管理",
+		key:"/admin/permission"
+	}
 ]
 
 export default menuList

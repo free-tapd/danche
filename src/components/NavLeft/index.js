@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import menuList from "../../config/menuConfig"
 import { Menu, Icon, Switch } from 'antd';
 import {Link} from "react-router-dom"
+import "./index.less"
 const { SubMenu } = Menu;
+
 class NavLeft extends Component {
     constructor(props) {
         super(props);
@@ -40,8 +42,12 @@ class NavLeft extends Component {
     render() { 
 
         return ( 
-            <div style={{backgroundColor:'#f00'}}>
-                <Menu theme="dark">
+            <div >
+				<div className="nav-logo">
+					<img src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"/>	
+					<p> Admin 管理</p>	
+				</div>
+                <Menu theme="dark" mode="inline">
                     {this.state.menuTreeNode}
                 </Menu>
                 
