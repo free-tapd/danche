@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import {Card,Table} from "antd"
+import {Card,Table,Button} from "antd"
 import axios from "../../axios"
+import {connect} from "react-redux";
+import * as actionCreator from "./store/actionCreator"
 class Tables extends Component {
     constructor(props) {
         super(props);
@@ -76,16 +78,19 @@ class Tables extends Component {
        type:"radio",
        selectedRowKeys
    }
+   console.log(this.props.list)
         return ( <div>
             <Card>
-                <Table bordered={true} pagination={true} dataSource ={this.state.dataSource} columns={columns}>
+                <Table bordered={true} pagination={true} dataSource ={this.state.dataSource2} columns={columns}>
 
                 </Table>
             </Card> 
-            <Card title="动态数据" style={{marginTop:10}}>
+            <Card title="动态数据 store thunk 获取" style={{marginTop:10}}>
+			
+				<Button onClick={this.props.getThunkList}>动态获取数据</Button>
                 <Table 
                 bordered={true} pagination={true} 
-                dataSource ={this.state.dataSource2} 
+                dataSource ={this.props.list} 
                 columns={columns}
                 rowSelection={rowSelection}
                 onRow={(record,index)=>{
@@ -121,5 +126,18 @@ class Tables extends Component {
         </div> );
     }
 }
- 
-export default Tables;
+const mapDispatchToProps=(dispatch)=>{
+	return {
+		getThunkList(){
+			dispatch(actionCreator.getTableData())
+		}
+
+	}
+}
+ const mapStateToProps=(state,ownState)=>{
+	 console.log(ownState)
+	 return {
+		 list:state.table.list
+	 }
+ }
+export default connect(mapStateToProps,mapDispatchToProps)(Tables);

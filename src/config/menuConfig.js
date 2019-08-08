@@ -43,6 +43,18 @@ const menuList=[
 	},{
 		title:"权限管理",
 		key:"/admin/permission"
+	},{
+		title:"图表列表",
+		key:"/admin/echart",
+		children:[
+			{
+				title:"柱形图",
+				key:"/admin/echart/bar"
+			},{
+				title:"折线图",
+				key:"/admin/echart/line"
+			}
+		]
 	}
 ]
 

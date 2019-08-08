@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row,Col } from 'antd';
 import "./index.less"
+import {connect} from "react-redux"
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +24,7 @@ class Header extends Component {
             <div className="header">
             <Row className="header-top">
                 <Col span={24}>
-                    <span>欢迎{this.state.userName}</span>
+                    <span>欢迎{this.props.userName}</span>
                     <a>退出</a>
                 </Col>
             </Row>
@@ -38,5 +39,9 @@ class Header extends Component {
          );
     }
 }
- 
-export default Header;
+ const mapStateToProps=(state)=>{
+	 return {
+		 userName:state.header.userName
+	 }
+ }
+export default connect(mapStateToProps,null)(Header) ;

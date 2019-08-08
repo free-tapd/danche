@@ -14,9 +14,14 @@ import Tabs from "./page/ui/tabs"
 import Tables from "./page/ui/tables"
 import Order from "./page/order"
 import Premission from "./page/premission"
+import Bar from "./page/echart/bar"
+import Line from "./page/echart/line"
 import Common from "./Common"
 import OrderDetail from "./page/order/orderDetail"
 
+// 引入store
+import store from "./store"
+import {Provider} from "react-redux"
 class IRouter extends Component {
     constructor(props) {
         super(props);
@@ -24,6 +29,7 @@ class IRouter extends Component {
     }
     render() { 
         return ( 
+		<Provider store={store}>
             <Router>
                 <App>
                 
@@ -41,6 +47,8 @@ class IRouter extends Component {
                         <Route path="/admin/city" component={City}/>
                         <Route path="/admin/order" component={Order}/>
                         <Route path="/admin/permission" component={Premission}/>
+                        <Route path="/admin/echart/bar" component={Bar}/>
+                        <Route path="/admin/echart/line" component={Line}/>
                     </Admin>
                 )
                  
@@ -56,6 +64,7 @@ class IRouter extends Component {
                 </Route>
                 </App>
             </Router>
+			</Provider>
          );
     }
 }

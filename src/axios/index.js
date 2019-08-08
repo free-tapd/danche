@@ -2,6 +2,7 @@ import axios from "axios"
 import { Modal } from "antd";
 // let baseURL= "https://easy-mock.com/mock/5d28886a922a2f462926e7f5/mockapi"
 let baseURL="https://www.easy-mock.com/mock/5d28886a922a2f462926e7f5/mockapi"
+
 export default class Axios{
     static ajax(options){
         return new Promise((resolve,reject)=>{
